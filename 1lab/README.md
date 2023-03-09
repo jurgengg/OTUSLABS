@@ -174,6 +174,62 @@ Unauthorized access is strictly prohibited. #
 ### Для чего нужна команда login? - **запроса авторизации**
 ### Настройте IP-адрес на компьютере PC-A.
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_25.png)  
+###	Отобразите конфигурацию коммутатора.  
+```
+S1# show run
+Building configuration...
+
+Current configuration : 2206 bytes
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$mtvC$6NC.1VKr3p6bj7YGE.jNg0
+!
+no aaa new-model
+system mtu routing 1500 
+!
+!
+no ip domain-lookup
+!
+<output omitted>
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.1.2 255.255.255.0
+!
+ip http server
+ip http secure-server
+!
+banner motd ^C
+Unauthorized access is strictly prohibited. ^C
+!
+line con 0
+ password 7 00071A150754
+ logging synchronous
+ login
+line vty 0 4
+ password 7 121A0C041104
+ login
+line vty 5 15
+ password 7 121A0C041104
+ login
+!
+end
+```  
 ### Проверьте параметры VLAN 1  
 Какова полоса пропускания этого интерфейса?  
 В каком состоянии находится VLAN 1?  
