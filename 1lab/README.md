@@ -176,31 +176,74 @@ Unauthorized access is strictly prohibited. #
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_25.png)  
 ###	Отобразите конфигурацию коммутатора.  
 ```
-S1# show run
+S1#sh run 
 Building configuration...
 
-Current configuration : 2206 bytes
+Current configuration : 1315 bytes
 !
 version 15.0
-no service pad
-service timestamps debug datetime msec
-service timestamps log datetime msec
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
 service password-encryption
 !
 hostname S1
 !
-boot-start-marker
-boot-end-marker
+enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
 !
-enable secret 5 $1$mtvC$6NC.1VKr3p6bj7YGE.jNg0
-!
-no aaa new-model
-system mtu routing 1500 
 !
 !
 no ip domain-lookup
 !
-<output omitted>
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
 !
 interface FastEthernet0/24
 !
@@ -211,22 +254,24 @@ interface GigabitEthernet0/2
 interface Vlan1
  ip address 192.168.1.2 255.255.255.0
 !
-ip http server
-ip http secure-server
+banner motd ^CUnauthorized access is strictly prohibited.^C
 !
-banner motd ^C
-Unauthorized access is strictly prohibited. ^C
+!
 !
 line con 0
- password 7 00071A150754
+ password 7 0822455D0A16
  logging synchronous
  login
+!
 line vty 0 4
- password 7 121A0C041104
+ password 7 0822404F1A0A
  login
+ transport input telnet
 line vty 5 15
- password 7 121A0C041104
  login
+!
+!
+!
 !
 end
 ```  
