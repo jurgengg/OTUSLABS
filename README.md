@@ -122,11 +122,34 @@ Switch# show interface vlan1
 ```
 Назначен ли IP-адрес сети VLAN 1? - **Нет**  
 Данный интерфейс включен?
-``` Vlan1 is administratively down, line protocol is down ```  
-  Какой MAC-адрес имеет SVI?  ``` Hardware is CPU Interface, address is 0009.7ce5.0d30 (bia 0009.7ce5.0d30)```  
-  	### Изучите IP-свойства интерфейса SVI сети VLAN 1.  
-```  Switch#sh ip int vlan 1
+``` Vlan1 is administratively down, line protocol is down ```   
+  Какой MAC-адрес имеет SVI?  
+  ``` Hardware is CPU Interface, address is 0009.7ce5.0d30 (bia 0009.7ce5.0d30)  ```  
+  ### Изучите IP-свойства интерфейса SVI сети VLAN 1.  
+```  
+Switch#sh ip int vlan 1
 Vlan1 is administratively down, line protocol is down
-  Internet protocol processing disable ```
-  ### Изучите сведения о версии ОС Cisco IOS на коммутаторе.
+  Internet protocol processing disable 
+```  
+  ### Изучите сведения о версии ОС Cisco IOS на коммутаторе.  
+  Под управлением какой версии ОС Cisco IOS работает коммутатор?  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_7.png)  
+Как называется файл образа системы?  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_9.png)  
+Какой базовый MAC-адрес назначен коммутатору?  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_8.png)  
+### Изучите свойства по умолчанию интерфейса FastEthernet, который используется компьютером PC-A.
+
+  Интерфейс включен или выключен? - **FastEthernet0/6 is up, line protocol is up (connected)**  
+Что нужно сделать, чтобы включить интерфейс? - **no shutdown**  
+Какой MAC-адрес у интерфейса? **Hardware is Lance, address is 000a.4141.0506 (bia 000a.4141.0506)** 
+Какие настройки скорости и дуплекса заданы в интерфейсе? - **Full-duplex, 100Mb/s**  
+### Изучите параметры сети VLAN по умолчанию на коммутаторе.
+Какое имя присвоено сети VLAN 1 по умолчанию?  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_13.png)  
+Какие порты расположены в сети VLAN 1?  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_12.png)  
+Активна ли сеть VLAN 1?!  
+К какому типу сетей VLAN принадлежит VLAN по умолчанию?  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_14.png) 
 
