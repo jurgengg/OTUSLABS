@@ -293,8 +293,8 @@ C:\> ping 192.168.1.2
 ⦁	После ввода пароля cisco вы окажетесь в командной строке пользовательского режима. Для перехода в исполнительский режим EXEC введите команду enable и используйте секретный пароль class.  
 ⦁	Сохраните конфигурацию.  
 ⦁	Чтобы завершить сеанс Telnet, введите exit.  
-![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_26.png)  
-![](https://github.com/jurgengg/OTUSLABS/blob/main/Screenshot_27.png)  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/1lab/Screenshot_26.png)  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/1lab/Screenshot_27.png)  
 
 ##	Вопросы для повторения  
 ⦁	Зачем необходимо настраивать пароль VTY для коммутатора? **Если не настроить пароль VTY, будет невозможно подключиться к коммутатору по протоколу Telnet.**  
