@@ -198,7 +198,14 @@ end
 ```
 ### ⦁	Запишите МАС-адреса сетевых устройств.
 Назовите физические адреса адаптера Ethernet  
-ПК PC-A 
+MAC адреса в строчке Physical Address  
+ПК PC-A  
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab2/Screenshot_1.png)  
 ПК PC-B  
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab2/Screenshot_2.png) 
+⦁	МАС-адрес коммутатора S1 Fast Ethernet 0/1:  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab2/Screenshot_5.png)  
+МАС-адрес коммутатора S2 Fast Ethernet 0/1:  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab2/Screenshot_4.png)  
+
+
