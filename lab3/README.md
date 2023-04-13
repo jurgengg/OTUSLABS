@@ -245,21 +245,15 @@ R1(config)#tr
 R1(config)#line vty 0 4
 R1(config-line)#tra
 R1(config-line)#transport in
-R1(config-line)#transport input all ```
+R1(config-line)#transport input all
+```
 
-
-
-### ⦁	Установите соединение с маршрутизатором по протоколу SSH.  
-
-
+### Установите соединение с маршрутизатором по протоколу SSH.  
 
 ```
 C:\>ssh -l jurgengg 192.168.1.1
 
 Password: 
-
-
-
 
 R1>en
 Password: 
