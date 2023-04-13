@@ -1,4 +1,4 @@
-# Лабораторная №4 - View the Switch MAC Address Table  
+# Лабораторная №4 - Configure Network Devices with SSH
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/11.png) 
 
 ### Настройка основных параметров устройств  
