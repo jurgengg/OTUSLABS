@@ -1,109 +1,7 @@
 # Лабораторная №4 - View the Switch MAC Address Table  
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/11.png) 
-### Конфигурация коммутатора S1 
-```
-S1#show run
-Building configuration...
 
-Current configuration : 1344 bytes
-!
-version 15.0
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
-service password-encryption
-!
-hostname S1
-!
-enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
-!
-!
-!
-ip ssh version 2
-ip domain-name otus.ru
-!
-username jurgengg secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
-!
-!
-!
-spanning-tree mode pvst
-spanning-tree extend system-id
-!
-interface FastEthernet0/1
-!
-interface FastEthernet0/2
-!
-interface FastEthernet0/3
-!
-interface FastEthernet0/4
-!
-interface FastEthernet0/5
-!
-interface FastEthernet0/6
-!
-interface FastEthernet0/7
-!
-interface FastEthernet0/8
-!
-interface FastEthernet0/9
-!
-interface FastEthernet0/10
-!
-interface FastEthernet0/11
-!
-interface FastEthernet0/12
-!
-interface FastEthernet0/13
-!
-interface FastEthernet0/14
-!
-interface FastEthernet0/15
-!
-interface FastEthernet0/16
-!
-interface FastEthernet0/17
-!
-interface FastEthernet0/18
-!
-interface FastEthernet0/19
-!
-interface FastEthernet0/20
-!
-interface FastEthernet0/21
-!
-interface FastEthernet0/22
-!
-interface FastEthernet0/23
-!
-interface FastEthernet0/24
-!
-interface GigabitEthernet0/1
-!
-interface GigabitEthernet0/2
-!
-interface Vlan1
- ip address 192.168.1.11 255.255.255.0
-!
-ip default-gateway 192.168.1.1
-!
-banner motd ^CNO ENTRY^C
-!
-!
-!
-line con 0
-!
-line vty 0 4
- password 7 0822455D0A16
- login local
- transport input ssh
-line vty 5 15
- login
-!
-!
-!
-!
-end
-```
-###	Настройка основных параметров устройств  
+### Настройка основных параметров устройств  
 
 ⦁	Создайте сеть согласно топологии.  
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/34.png)  
@@ -263,3 +161,196 @@ R1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 R1(config)#
 ```
+## Настройка коммутатора для доступа по протоколу SSH  
+### Конфигурация коммутатора S1 
+```
+S1#show run
+Building configuration...
+
+Current configuration : 1344 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname S1
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+ip ssh version 2
+ip domain-name otus.ru
+!
+username jurgengg secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.1.11 255.255.255.0
+!
+ip default-gateway 192.168.1.1
+!
+banner motd ^CNO ENTRY^C
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ password 7 0822455D0A16
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+```
+
+### Настройка для подключения по SSH
+```
+S1(config)#ip domain-name otus.ru
+S1(config)#key
+S1(config)#ge
+S1(config)#key
+S1(config)#cr
+S1(config)#crypto ke
+S1(config)#crypto key ge
+S1(config)#crypto key generate rsa
+The name for the keys will be: S1.otus.ru
+Choose the size of the key modulus in the range of 360 to 2048 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+
+S1(config)#ip ver
+*Mar 1 0:15:43.249: %SSH-5-ENABLED: SSH 1.99 has been enabled
+S1(config)#ip ssh ver
+S1(config)#ip ssh version 2
+S1(config)#use
+S1(config)#username jurgengg secret class
+S1(config)#line v
+S1(config)#line vty 0 4
+S1(config-line)#login local
+S1(config-line)#tra
+S1(config-line)#transport in
+S1(config-line)#transport input ssh
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#
+S1(config-line)#exit
+```
+### ⦁	Установите соединение с коммутатором по протоколу SSH.  
+```
+C:\>ssh -l jurgengg 192.168.1.11
+
+Password: 
+
+NO ENTRY
+
+S1>en
+Password: 
+Password: 
+Password: 
+S1#
+S1#
+S1#
+S1#
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#
+```
+## ⦁	Установите с коммутатора S1 соединение с маршрутизатором R1 по протоколу SSH.  
+```
+S1#ssh -l jurgengg 192.168.1.1
+
+Password: 
+
+
+
+
+R1>
+S1#
+S1#
+[Resuming connection 1 to 192.168.1.1 ... ]
+
+R1>exit
+
+[Connection to 192.168.1.1 closed by foreign host]
+S1#
+```
+## Вопрос для повторения  
+Как предоставить доступ к сетевому устройству нескольким пользователям, у каждого из которых есть собственное имя пользователя? - Создать каждому отдельную локальную учетную записьдля подключения по VTY
+
+
+
