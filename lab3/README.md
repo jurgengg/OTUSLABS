@@ -213,10 +213,10 @@ Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
     ```
     
-    ###⦁	Настройка маршрутизатора для доступа по протоколу SSH  
+###	Настройка маршрутизатора для доступа по протоколу SSH  
     
-    ```
-    R1(config)#ip domain-name otus.ru
+```
+R1(config)#ip domain-name otus.ru
 R1(config)#cry
 R1(config)#crypto ke
 R1(config)#crypto key ge
