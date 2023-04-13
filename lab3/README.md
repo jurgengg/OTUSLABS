@@ -211,7 +211,9 @@ Ping statistics for 192.168.1.1:
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
     ```
+    
     ###⦁	Настройка маршрутизатора для доступа по протоколу SSH  
+    
     ```
     R1(config)#ip domain-name otus.ru
 R1(config)#cry
@@ -244,7 +246,11 @@ R1(config-line)#tra
 R1(config-line)#transport in
 R1(config-line)#transport input all
 ```
+
+
 ### ⦁	Установите соединение с маршрутизатором по протоколу SSH.  
+
+
 
 ```
 C:\>ssh -l jurgengg 192.168.1.1
