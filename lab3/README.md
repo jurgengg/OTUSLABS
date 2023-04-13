@@ -211,7 +211,7 @@ Ping statistics for 192.168.1.1:
     Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
-    ```
+```
     
 ###	Настройка маршрутизатора для доступа по протоколу SSH  
     
@@ -245,8 +245,8 @@ R1(config)#tr
 R1(config)#line vty 0 4
 R1(config-line)#tra
 R1(config-line)#transport in
-R1(config-line)#transport input all
-```
+R1(config-line)#transport input all ```
+
 
 
 ### ⦁	Установите соединение с маршрутизатором по протоколу SSH.  
