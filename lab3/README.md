@@ -106,7 +106,7 @@ end
 ###	Настройка основных параметров устройств  
 
 ⦁	Создайте сеть согласно топологии.  
-![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/34.png)
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/34.png)  
 ⦁	Настройте маршрутизатор.  
 ### Конфигурация маршрутизатора R1  
 ```
@@ -198,6 +198,7 @@ end
 ###	Настройте компьютер PC-A.  
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/6.png)  
 ⦁	Проверьте подключение к сети  
+
 ```
 Pinging 192.168.1.1 with 32 bytes of data:
 
