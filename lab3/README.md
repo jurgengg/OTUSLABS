@@ -1,4 +1,4 @@
-# Лабораторная №4 - Configure Network Devices with SSH
+# Лабораторная №5 - Configure Network Devices with SSH
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab3/11.png) 
 
 ### Настройка основных параметров устройств  
