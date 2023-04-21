@@ -1,3 +1,6 @@
+# Лабораторная №5 - Implement_Inter_VLAN_Routing  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab5/Screenshot_4.png)   
+## Создание сети и настройка основных параметров устройства  
 ```
 Router>en
 Router#conf t
@@ -150,7 +153,7 @@ S2#wr mem
 Building configuration...
 [OK]
 ```
-
+## Создание сетей VLAN и назначение портов коммутатора  
 ```
 S1(config)#vlan 10
 S1(config-vlan)#vlan 20
@@ -309,7 +312,7 @@ S2(config-if-range)#shutdown
 
 %LINK-5-CHANGED: Interface GigabitEthernet0/2, changed state to administratively down
 ```
-
+### 	Назначьте сети VLAN соответствующим интерфейсам коммутатора  
 ```
 S1(config-if-range)#int fa0/6
 S1(config-if)#sw
@@ -333,6 +336,8 @@ S2(config-if)#switchport ac
 S2(config-if)#switchport access vlan 30
 S2(config-if)#exit
 ```
+## Конфигурация магистрального канала стандарта 802.1Q между коммутаторами  
+### Вручную настройте магистральный интерфейс F0/1 на коммутаторах S1 и S2.  
 
 ```
 S1(config-if)#int fa0/1
@@ -422,6 +427,7 @@ Fa0/1       none
 
 S2(config-if)#
 ```
+### Вручную настройте магистральный интерфейс F0/5 на коммутаторе S1.  
 
 ```
 S1(config-if)#int fa0/5
@@ -458,7 +464,9 @@ Building configuration...
 [OK]
 S1#
 ```
+### Что произойдет, если G0/0/1 на R1 будет отключен? - Не будет связаности с маршрутизатором, а значит трафик не будет маршрутизироваться, а останется на 2м уровне. При таком раскладе мы не сможем достучаться из vlan 20 в vlan 30.  
 
+## 	Настройка маршрутизации между сетями VLAN  
 ```
 R1(config)#int g0/0/1
 R1(config-if)#no sh
@@ -525,7 +533,8 @@ R1(config-subif)#encapsulation d
 R1(config-subif)#encapsulation dot1Q 1000
 R1(config-subif)#
 ```
-
+## Проверьте, работает ли маршрутизация между VLAN  
+### Отправьте эхо-запрос с PC-A на шлюз по умолчанию  
 ```
 C:\>ping 192.168.20.1
 
@@ -536,7 +545,8 @@ Reply from 192.168.20.1: bytes=32 time=1ms TTL=255
 Reply from 192.168.20.1: bytes=32 time<1ms TTL=255
 Reply from 192.168.20.1: bytes=32 time<1ms TTL=255
 ```
-
+### Отправьте эхо-запрос с PC-A на PC-B  
+ 
 ```
 C:\>ping 192.168.30.3
 
@@ -550,7 +560,7 @@ Reply from 192.168.30.3: bytes=32 time<1ms TTL=127
 Ping statistics for 192.168.30.3:
     Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
 ```
-
+### 	Отправьте команду ping с компьютера PC-A на коммутатор S2  
 ```
 C:\>ping 192.168.10.12
 
@@ -561,7 +571,7 @@ Request timed out.
 Reply from 192.168.10.12: bytes=32 time<1ms TTL=254
 Reply from 192.168.10.12: bytes=32 time<1ms TTL=254
 ```
-
+### В окне командной строки на PC-B выполните команду tracert на адрес PC-A  
 ```
 C:\>tracert 192.168.20.3
 
@@ -572,4 +582,5 @@ Tracing route to 192.168.20.3 over a maximum of 30 hops:
 
 Trace complete.
 ```
+### Какие промежуточные IP-адреса отображаются в результатах? 192.168.30.1 - subint R1 G0/0/1.30, 192.168.20.3 - PC A
 
