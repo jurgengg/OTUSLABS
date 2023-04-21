@@ -1,4 +1,4 @@
-# Лабораторная №5 - Implement_Inter_VLAN_Routing  
+# Лабораторная №6 - Implement_Inter_VLAN_Routing  
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/lab5/Screenshot_4.png)   
 ## Создание сети и настройка основных параметров устройства  
 ```
