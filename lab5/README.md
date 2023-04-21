@@ -94,9 +94,7 @@ S1(config)#exit
 S1#
 %SYS-5-CONFIG_I: Configured from console by console
 
-S1#
-S1#
-S1#
+
 S1#clo
 S1#clock s
 S1#clock set 11:10:00 21 april 2023
