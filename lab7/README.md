@@ -1,5 +1,28 @@
+# Лабораторная №7 - Building_a_Switched_Network_with_Redundant_Links-35585  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/lab7.1.png)      
+
+
+## Базовая настройка настройка коммутаторов на примере S1   
 ```
-S1(config-if)#ip ad
+Switch(config)#enable se
+Switch(config)#enable secret class
+Switch(config)#line vty 0 4
+Switch(config-line)#password cisco
+Switch(config-line)#login
+Switch(config-line)#tra
+Switch(config-line)#transport in
+Switch(config-line)#transport input  all
+Switch(config-line)#exit
+Switch(config)#ser
+Switch(config)#service pa
+Switch(config)#service password-encryption 
+Switch(config)#host S1
+S1(config)#ba
+S1(config)#banner mo
+S1(config)#banner motd *
+Enter TEXT message.  End with the character '*'.
+NO ENTRY*
+S1(config)#int vlan 1
 S1(config-if)#ip address 192.168.1.1 255.255.255.0
 S1(config-if)#no shu
 
@@ -20,6 +43,9 @@ S1#
 S1#wr mem
 Building configuration...
 [OK]
+```
+## Проверьте способность компьютеров обмениваться эхо-запросами.  
+```
 S1#
 S1#
 S1#
@@ -37,9 +63,15 @@ Sending 5, 100-byte ICMP Echos to 192.168.1.3, timeout is 2 seconds:
 ..!!!
 Success rate is 60 percent (3/5), round-trip min/avg/max = 0/0/0 ms
 
-S1#
-S1#
-S1#
+S2#ping 192.168.1.3
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.3, timeout is 2 seconds:
+..!!!
+Success rate is 60 percent (3/5), round-trip min/avg/max = 0/0/0 ms
+```
+
+```
 S1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 S1(config)#int r
@@ -112,128 +144,7 @@ S1(config-if-range)#
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
 
-S1(config-if-range)#
-S1(config-if-range)#
-S1(config-if-range)#
-S1(config-if-range)#int ra
-S1(config-if-range)#exit
-S1(config)#int ra
-S1(config)#int range fa0/1-4
-S1(config-if-range)#sw
-S1(config-if-range)#switchport mo
-S1(config-if-range)#switchport mode trunk
-S1(config-if-range)#swi
-S1(config-if-range)#switchport tr
-S1(config-if-range)#switchport trunk al
-S1(config-if-range)#switchport trunk allowed vlan 1
-S1(config-if-range)#exit
-S1(config)#int ran
-S1(config)#int range fa0/2, fa0/4
-S1(config-if-range)#no shu
 
-%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to down
-
-%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to down
-S1(config-if-range)#
-%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
-
-%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
-
-S1(config-if-range)#^Z
-S1#
-%SYS-5-CONFIG_I: Configured from console by console
-
-S1#
-S1#sh spa
-S1#sh spanning-tree 
-VLAN0001
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32769
-             Address     0030.A3D5.7EC5
-             Cost        19
-             Port        2(FastEthernet0/2)
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-
-  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     00D0.FFD6.695C
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
-
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Fa0/4            Altn BLK 19        128.4    P2p
-Fa0/2            Root FWD 19        128.2    P2p
-
-S1#
-```
-
-
-```
-%LINK-5-CHANGED: Interface Vlan1, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
-
-S2(config-if)#
-S2(config-if)#
-S2(config-if)#wr mem
-              ^
-% Invalid input detected at '^' marker.
-	
-S2(config-if)#exit
-S2(config)#wr mem
-           ^
-% Invalid input detected at '^' marker.
-	
-S2(config)#^Z
-S2#
-%SYS-5-CONFIG_I: Configured from console by console
-
-S2#
-S2#
-S2#wr mem
-Building configuration...
-[OK]
-S2#ping 192.168.1.3
-
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.3, timeout is 2 seconds:
-..!!!
-Success rate is 60 percent (3/5), round-trip min/avg/max = 0/0/0 ms
-
-S2#
-%LINK-3-UPDOWN: Interface FastEthernet0/1, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
-
-%LINK-3-UPDOWN: Interface FastEthernet0/2, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to down
-
-%LINK-3-UPDOWN: Interface FastEthernet0/3, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
-
-%LINK-3-UPDOWN: Interface FastEthernet0/4, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
-
-S2#
-S2#
-S2#
-S2#
-S2#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-S2(config)#
-S2(config)#
-S2(config)#
 S2(config)#int range fa0/1-24, gi0/1-2
 S2(config-if-range)#shu
 
@@ -288,118 +199,8 @@ S2(config-if-range)#shu
 %LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to administratively down
 
 %LINK-5-CHANGED: Interface GigabitEthernet0/2, changed state to administratively down
-S2(config-if-range)#
-S2(config-if-range)#
-S2(config-if-range)#
-S2(config-if-range)#
-S2(config-if-range)#exit
-S2(config)#int range fa0/1-4
-S2(config-if-range)#swi
-S2(config-if-range)#switchport mode
-S2(config-if-range)#switchport mode tru
-S2(config-if-range)#switchport mode trunk 
-S2(config-if-range)#swi
-S2(config-if-range)#switchport tr
-S2(config-if-range)#switchport trunk a
-S2(config-if-range)#switchport trunk allowed vlan 1
-S2(config-if-range)#exit
-S2(config)#int range fa0/2, fa0/4
-S2(config-if-range)#no shut
 
 
-S2(config-if-range)#
-%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
-
-%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
-
-S2(config-if-range)#
-S2(config-if-range)#
-S2(config-if-range)#
-S2(config-if-range)#^Z
-S2#
-%SYS-5-CONFIG_I: Configured from console by console
-
-S2#
-S2#
-S2#sh spa
-S2#sh spanning-tree 
-VLAN0001
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32769
-             Address     0030.A3D5.7EC5
-             This bridge is the root
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-
-  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     0030.A3D5.7EC5
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
-
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Fa0/2            Desg FWD 19        128.2    P2p
-Fa0/4            Desg FWD 19        128.4    P2p
-
-S2#
-```
-```
-Switch(config)#enable se
-Switch(config)#enable secret class
-Switch(config)#line vty 0 4
-Switch(config-line)#password cisco
-Switch(config-line)#login
-Switch(config-line)#tra
-Switch(config-line)#transport in
-Switch(config-line)#transport input  all
-Switch(config-line)#exit
-Switch(config)#ser
-Switch(config)#service pa
-Switch(config)#service password-encryption 
-Switch(config)#host S3
-S3(config)#int vlan 1
-S3(config-if)#192.168.1.3 255.255.255.0
-              ^
-% Invalid input detected at '^' marker.
-	
-S3(config-if)#ip ad192.168.1.3 255.255.255.0
-S3(config-if)#ip address 192.168.1.3 255.255.255.0
-S3(config-if)#no shu
-
-S3(config-if)#
-%LINK-5-CHANGED: Interface Vlan1, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
-
-S3(config-if)#
-S3(config-if)#
-S3(config-if)#^Z
-S3#
-%SYS-5-CONFIG_I: Configured from console by console
-
-S3#
-S3#wr mem
-Building configuration...
-[OK]
-S3#
-%LINK-3-UPDOWN: Interface FastEthernet0/3, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
-
-%LINK-3-UPDOWN: Interface FastEthernet0/4, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
-
-S3#
-S3#
-S3#
-S3#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
 S3(config)#int r
 S3(config)#int range fa0/1-24, gi0/1-2
 S3(config-if-range)#shu
@@ -464,13 +265,60 @@ S3(config-if-range)#
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to down
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
+```
+```
+S1(config)#int range fa0/1-4
+S1(config-if-range)#sw
+S1(config-if-range)#switchport mo
+S1(config-if-range)#switchport mode trunk
+S1(config-if-range)#swi
+S1(config-if-range)#switchport tr
+S1(config-if-range)#switchport trunk al
+S1(config-if-range)#switchport trunk allowed vlan 1
+S1(config-if-range)#exit
+S1(config)#int ran
+S1(config)#int range fa0/2, fa0/4
+S1(config-if-range)#no shu
 
-S3(config-if-range)#
-S3(config-if-range)#
-S3(config-if-range)#
-S3(config-if-range)#
-S3(config-if-range)#exit
-S3(config)#int r
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to down
+
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to down
+S1(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
+
+S2(config)#int range fa0/1-4
+S2(config-if-range)#swi
+S2(config-if-range)#switchport mode
+S2(config-if-range)#switchport mode tru
+S2(config-if-range)#switchport mode trunk 
+S2(config-if-range)#swi
+S2(config-if-range)#switchport tr
+S2(config-if-range)#switchport trunk a
+S2(config-if-range)#switchport trunk allowed vlan 1
+S2(config-if-range)#exit
+S2(config)#int range fa0/2, fa0/4
+S2(config-if-range)#no shut
+
+
+S2(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
+
 S3(config)#int range fa0/1-4
 S3(config-if-range)#sw
 S3(config-if-range)#switchport m
@@ -495,12 +343,47 @@ S3(config-if-range)#
 %LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
+```
+```
+S1#sh spa
+S1#sh spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0030.A3D5.7EC5
+             Cost        19
+             Port        2(FastEthernet0/2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
 
-S3(config-if-range)#^Z
-S3#
-%SYS-5-CONFIG_I: Configured from console by console
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     00D0.FFD6.695C
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
 
-S3#sh spa
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/4            Altn BLK 19        128.4    P2p
+Fa0/2            Root FWD 19        128.2    P2p
+
+
+S2#sh spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0030.A3D5.7EC5
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0030.A3D5.7EC5
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/2            Desg FWD 19        128.2    P2p
+Fa0/4            Desg FWD 19        128.4    P2p
+
 S3#sh spanning-tree 
 VLAN0001
   Spanning tree enabled protocol ieee
@@ -519,8 +402,6 @@ Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
 Fa0/4            Desg FWD 19        128.4    P2p
 Fa0/2            Root FWD 19        128.2    P2p
-
-S3#
 
 ```
 
