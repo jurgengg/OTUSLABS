@@ -407,17 +407,22 @@ Fa0/4            Desg FWD 19        128.4    P2p
 Fa0/2            Root FWD 19        128.2    P2p
 
 ```
+В схему ниже запишите роль и состояние (Sts) активных портов на каждом коммутаторе в топологии.  
 
+С учетом выходных данных, поступающих с коммутаторов, ответьте на следующие вопросы.
+Какой коммутатор является корневым мостом? S2  
+Почему этот коммутатор был выбран протоколом spanning-tree в качестве корневого моста?
+Стоимость портов одинаковая, выбор был по BID (т.к приоритет тоже одинаковый выбор строился исходя из наименьшего mac адреса.  
+Какие порты на коммутаторе являются корневыми портами? на S1 - fa0.2; на S3 fa0/2  
+Какие порты на коммутаторе являются назначенными портами? S2- fa0/2, fa0/4; S3  - fa0/4  
+Какой порт отображается в качестве альтернативного и в настоящее время заблокирован? S1 - fa0/4  
+Почему протокол spanning-tree выбрал этот порт в качестве невыделенного (заблокированного) порта?
+так как свитч с самым большим BID  
+
+## Измените стоимость порта  
+Просмотрите изменения протокола spanning-tree  
 ```
-S1>en
-Password: 
-S1#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-S1(config)#spa
-S1(config)#spanning-tree vlan 1 cost 18
-                                ^
-% Invalid input detected at '^' marker.
-	
+
 S1(config)#int fa0/2
 S1(config-if)#spa
 S1(config-if)#spanning-tree vlan 1 c
@@ -448,19 +453,32 @@ Interface        Role Sts Cost      Prio.Nbr Type
 Fa0/4            Desg FWD 19        128.4    P2p
 Fa0/2            Root FWD 18        128.2    P2p
 
-S1#int fa0/2
-       ^
-% Invalid input detected at '^' marker.
-	
-S1#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
+S3#sh spa
+S3#sh spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0030.A3D5.7EC5
+             Cost        19
+             Port        2(FastEthernet0/2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0090.2B86.2013
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/4            Altn BLK 19        128.4    P2p
+Fa0/2            Root FWD 19        128.2    P2p  
+```  
+  
+ ## Удалите изменения стоимости порта.  
+ Повторно выполните команду show spanning-tree, чтобы подтвердить, что протокол STP сбросил порт на коммутаторе некорневого моста, вернув исходные настройки порта. Протоколу STP требуется примерно 30 секунд, чтобы завершить процесс перевода порта.  
+```
 S1(config)#int fa0/2
 S1(config-if)#no sp
-S1(config-if)#no spa
-S1(config-if)#no spanning-tree vlan cost 18
-                                         ^
-% Invalid input detected at '^' marker.
-	
 S1(config-if)#no spanning-tree vlan 1 cost 18
 S1(config-if)#^Z
 S1#
@@ -487,28 +505,8 @@ Interface        Role Sts Cost      Prio.Nbr Type
 Fa0/4            Altn BLK 19        128.4    P2p
 Fa0/2            Root FWD 19        128.2    P2p
 ```
+### Включите порты F0/1 и F0/3 на всех коммутаторах.
 
-```
-S3#sh spa
-S3#sh spanning-tree 
-VLAN0001
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32769
-             Address     0030.A3D5.7EC5
-             Cost        19
-             Port        2(FastEthernet0/2)
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-
-  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     0090.2B86.2013
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
-
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Fa0/4            Altn BLK 19        128.4    P2p
-Fa0/2            Root FWD 19        128.2    P2p
-```
 
 ```
 S1#conf t
@@ -529,14 +527,41 @@ S1(config-if-range)#
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
 
-S1(config-if-range)#
-S1(config-if-range)#^Z
-S1#
-%SYS-5-CONFIG_I: Configured from console by console
+S3(config)#int rah
+S3(config)#int ra
+S3(config)#int range fa01/, fa0/3
+                          ^
+% Invalid input detected at '^' marker.
+	
+S3(config)#int range fa0/1, fa0/3
+S3(config-if-range)#no shut
 
-S1#
-S1#
-S1#sh spa
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to down
+
+S3(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+S2(config)#int ran
+S2(config)#int range fa0/1, fa0/3
+S2(config-if-range)#no shut
+
+
+S2(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
+```
+
+```
 S1#sh spanning-tree 
 VLAN0001
   Spanning tree enabled protocol ieee
@@ -558,39 +583,7 @@ Fa0/1            Root FWD 19        128.1    P2p
 Fa0/2            Altn BLK 19        128.2    P2p
 Fa0/3            Altn BLK 19        128.3    P2p
 
-S1#
-```
 
-```
-S3(config)#int rah
-S3(config)#int ra
-S3(config)#int range fa01/, fa0/3
-                          ^
-% Invalid input detected at '^' marker.
-	
-S3(config)#int range fa0/1, fa0/3
-S3(config-if-range)#no shut
-
-%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to down
-
-S3(config-if-range)#
-%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
-
-%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
-
-S3(config-if-range)#
-S3(config-if-range)#
-S3(config-if-range)#^Z
-S3#
-%SYS-5-CONFIG_I: Configured from console by console
-
-S3#
-S3#
-S3#sh sp
 S3#sh spanning-tree 
 VLAN0001
   Spanning tree enabled protocol ieee
@@ -612,33 +605,7 @@ Fa0/2            Altn BLK 19        128.2    P2p
 Fa0/3            Desg FWD 19        128.3    P2p
 Fa0/1            Root FWD 19        128.1    P2p
 
-S3#
-```
 
-```
-S2#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-S2(config)#int ran
-S2(config)#int range fa0/1, fa0/3
-S2(config-if-range)#no shut
-
-
-S2(config-if-range)#
-%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
-
-%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
-
-S2(config-if-range)#
-S2(config-if-range)#^Z
-S2#
-%SYS-5-CONFIG_I: Configured from console by console
-
-S2#
-S2#
 S2#sh sp
 S2#sh spanning-tree 
 VLAN0001
@@ -660,3 +627,10 @@ Fa0/3            Desg FWD 19        128.3    P2p
 Fa0/1            Desg FWD 19        128.1    P2p
 Fa0/4            Desg FWD 19        128.4    P2p
 ```
+Какой порт выбран протоколом STP в качестве порта корневого моста на каждом коммутаторе некорневого моста? fa0/1  
+Почему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах? по приоритету порта, а именно так как наименьший номер порта  
+### Вопросы для повторения  
+Какое значение протокол STP использует первым после выбора корневого моста, чтобы определить выбор порта? По наименьшей стоимости портов (пути)  (10gb/s -2; 1gb/s -4; 100 mb/s -19; 10mb/s - 100)  
+Если первое значение на двух портах одинаково, какое следующее значение будет использовать протокол STP при выборе порта? BID  (приоритет (32768+VLAN) + MAC)  
+Если оба значения на двух портах равны, каким будет следующее значение, которое использует протокол STP при выборе порта?
+приоритет портов  (128+№ порта)  
