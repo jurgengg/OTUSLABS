@@ -70,7 +70,7 @@ Sending 5, 100-byte ICMP Echos to 192.168.1.3, timeout is 2 seconds:
 ..!!!
 Success rate is 60 percent (3/5), round-trip min/avg/max = 0/0/0 ms
 ```
-
+## Отключите все порты на коммутаторах  
 ```
 S1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
@@ -266,6 +266,8 @@ S3(config-if-range)#
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
 ```
+## Настройте подключенные порты в качестве транковых  
+## Включите порты F0/2 и F0/4 на всех коммутаторах  
 ```
 S1(config)#int range fa0/1-4
 S1(config-if-range)#sw
@@ -344,6 +346,7 @@ S3(config-if-range)#
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
 ```
+## Отобразите данные протокола spanning-tree  
 ```
 S1#sh spa
 S1#sh spanning-tree 
