@@ -71,6 +71,7 @@ Sending 5, 100-byte ICMP Echos to 192.168.1.3, timeout is 2 seconds:
 Success rate is 60 percent (3/5), round-trip min/avg/max = 0/0/0 ms
 ```
 ## Отключите все порты на коммутаторах  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/7.png) 
 ```
 S1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
@@ -143,7 +144,7 @@ S1(config-if-range)#
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
-![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/7.png) 
+
 
 S2(config)#int range fa0/1-24, gi0/1-2
 S2(config-if-range)#shu
