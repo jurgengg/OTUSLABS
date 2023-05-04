@@ -143,7 +143,7 @@ S1(config-if-range)#
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/7.png) 
 
 S2(config)#int range fa0/1-24, gi0/1-2
 S2(config-if-range)#shu
@@ -347,6 +347,7 @@ S3(config-if-range)#
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
 ```
 ## Отобразите данные протокола spanning-tree  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/on2%2C4.png) 
 ```
 S1#sh spa
 S1#sh spanning-tree 
@@ -473,6 +474,7 @@ Interface        Role Sts Cost      Prio.Nbr Type
 Fa0/4            Altn BLK 19        128.4    P2p
 Fa0/2            Root FWD 19        128.2    P2p  
 ```  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/cost18.png) 
   
  ## Удалите изменения стоимости порта.  
  Повторно выполните команду show spanning-tree, чтобы подтвердить, что протокол STP сбросил порт на коммутаторе некорневого моста, вернув исходные настройки порта. Протоколу STP требуется примерно 30 секунд, чтобы завершить процесс перевода порта.  
@@ -505,6 +507,7 @@ Interface        Role Sts Cost      Prio.Nbr Type
 Fa0/4            Altn BLK 19        128.4    P2p
 Fa0/2            Root FWD 19        128.2    P2p
 ```
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/no%20cost.png) 
 ### Включите порты F0/1 и F0/3 на всех коммутаторах.
 
 
@@ -627,6 +630,7 @@ Fa0/3            Desg FWD 19        128.3    P2p
 Fa0/1            Desg FWD 19        128.1    P2p
 Fa0/4            Desg FWD 19        128.4    P2p
 ```
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab7/fa13.png) 
 Какой порт выбран протоколом STP в качестве порта корневого моста на каждом коммутаторе некорневого моста? fa0/1  
 Почему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах? по приоритету порта, а именно так как наименьший номер порта  
 ### Вопросы для повторения  
