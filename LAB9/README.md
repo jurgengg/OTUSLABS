@@ -1,9 +1,10 @@
 # Lab___Switch_Security_Configuration-1801-49aa15
+![](https://github.com/jurgengg/OTUSLABS/blob/main/LAB9/Screenshot_5.png)    
 ⦁	Настройка основного сетевого устройства  
 ⦁	Создайте сеть.  
 ⦁	Создайте сеть согласно топологии.  
 ⦁	Инициализация устройств  
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/LAB9/Screenshot_6.png)   
 
 ###	Настройте маршрутизатор R1.  
 ```
@@ -555,7 +556,7 @@ Fa0/21                       disabled 999        auto    auto  10/100BaseTX
 ### На S1, введите команду show port-security interface f0/6  для отображения настроек по умолчанию безопасности порта для интерфейса F0/6. Запишите свои ответы ниже.  
 
 
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/LAB9/lab9.png)  
 
 
 
