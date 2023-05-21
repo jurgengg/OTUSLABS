@@ -220,23 +220,6 @@ S2(config-if)#description Management
 ```  
 ### Настройте VLAN 333 с именем Native на S1 и S2.  
 ### Настройте VLAN 999 с именем ParkingLot на S1 и S2.  
-```
-S1(config-vlan)#int fa0/1
-S1(config-if)#swi
-S1(config-if)#switchport mode tr
-S1(config-if)#switchport mode trunk 
-
-S1(config-if)#
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan10, changed state to up
-swi
-S1(config-if)#switchport tr
-S1(config-if)#switchport trunk na
-S1(config-if)#switchport trunk native vlan 333
-```  
 
 
 ## Настройки безопасности коммутатора.  
@@ -247,6 +230,10 @@ S1(config-if)#vlan 333
 S1(config-vlan)#name Native
 S1(config-vlan)#vlan 999
 S1(config-vlan)#name ParkingLot
+S2(config-if)#vlan 333
+S2(config-vlan)#name Native
+S2(config-vlan)#vlan 999
+S2(config-vlan)#name ParkingLot
 
 S2(config-vlan)#int fa0/1
 S2(config-if)#swi
@@ -263,6 +250,22 @@ S2(config-if)#no s%SPANTREE-2-UNBLOCK_CONSIST_PORT: Unblocking FastEthernet0/1 o
 
 % Incomplete command.
 S2(config-if)#no shu
+
+S1(config-vlan)#int fa0/1
+S1(config-if)#swi
+S1(config-if)#switchport mode tr
+S1(config-if)#switchport mode trunk 
+
+S1(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan10, changed state to up
+swi
+S1(config-if)#switchport tr
+S1(config-if)#switchport trunk na
+S1(config-if)#switchport trunk native vlan 333
 ```  
 ### Убедитесь, что режим транкинга успешно настроен на всех коммутаторах.  
 S1# show interface trunk  
