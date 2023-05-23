@@ -182,7 +182,20 @@ R1(config-if)#
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
 ```
+### Какие группы многоадресной рассылки назначены интерфейсу G0/0?
 
+```
+R1#show ipv6 int g0/0/0
+GigabitEthernet0/0/0 is up, line protocol is up
+  IPv6 is enabled, link-local address is FE80::1
+  No Virtual link-local address(es):
+  Global unicast address(es):
+    2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64
+  Joined group address(es):
+    FF02::1
+    FF02::2
+    FF02::1:FF00:1
+```
 ### ⦁	Активируйте IPv6-маршрутизацию на R1  
 В командной строке на PC-B введите команду ipconfig, чтобы получить данные IPv6-адреса, назначенного интерфейсу ПК  
 ```
@@ -245,18 +258,7 @@ Bluetooth Connection:
    Default Gateway.................: ::
    ```
 Почему PC-B получил глобальный префикс маршрутизации и идентификатор подсети, которые вы настроили на R1?  
-```
-R1#show ipv6 int g0/0/0
-GigabitEthernet0/0/0 is up, line protocol is up
-  IPv6 is enabled, link-local address is FE80::1
-  No Virtual link-local address(es):
-  Global unicast address(es):
-    2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64
-  Joined group address(es):
-    FF02::1
-    FF02::2
-    FF02::1:FF00:1
-```
+
 
 
 
