@@ -1,5 +1,6 @@
 # OTUSLABS
 # OTUSLABS
+### Настройте маршрутизатор  
 ```
 Router>en
 Router#conf t
@@ -40,70 +41,9 @@ R1#
 R1#wr mem
 Building configuration...
 [OK]
-R1#
-R1#
-R1#
-R1#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-R1(config)#int g0/0/0
-R1(config-if)#ipv
-R1(config-if)#ipv6 ad
-R1(config-if)#ipv6 address 2001:db8:acad:a::1/64
-R1(config-if)#int g0/0/1
-R1(config-if)#ipv
-R1(config-if)#ipv6 ad
-R1(config-if)#ipv6 address 2001:db8:acad:1::1/64
-R1(config-if)#ipv6 ad
-R1(config-if)#ipv6 address fe80::1 local
-                                    ^
-% Invalid input detected at '^' marker.
-	
-R1(config-if)#ipv6 address fe80::1 ?
-  link-local  Use link-local address
-R1(config-if)#ipv6 address fe80::1 lin
-R1(config-if)#ipv6 address fe80::1 link-local 
-R1(config-if)#int g0/0/0
-R1(config-if)#ipv6 address fe80::1 link-local 
-R1(config-if)#do show ip
-R1(config-if)#do show ipv
-R1(config-if)#do show ipv6 int br
-GigabitEthernet0/0/0       [administratively down/down]
-    FE80::1
-    2001:DB8:ACAD:A::1
-GigabitEthernet0/0/1       [administratively down/down]
-    FE80::1
-    2001:DB8:ACAD:1::1
-Vlan1                      [administratively down/down]
-    unassigned
-R1(config-if)#int g0/0/0
-R1(config-if)#no sh
-
-R1(config-if)#
-%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
-int g0/0/1
-R1(config-if)#no sh
-
-R1(config-if)#
-%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
-
-R1(config-if)#
-R1(config-if)#^Z
-R1#
-%SYS-5-CONFIG_I: Configured from console by console
-
-R1#
-R1#ipv
-R1#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-R1(config)#ipv
-R1(config)#ipv6 un
-R1(config)#ipv6 unicast-routing 
-R1(config)#
 ```
+
+### Настройте коммутатор  
 ```
 Switch>
 Switch>
@@ -186,7 +126,132 @@ Press RETURN to get started.
 
 
 NO ENTRY
+```
+### Назначьте IPv6-адреса интерфейсам Ethernet на R1  
+### Назначьте глобальные индивидуальные IPv6-адреса, указанные в таблице адресации обоим интерфейсам Ethernet на R1  
+### Чтобы обеспечить соответствие локальных адресов канала индивидуальному адресу, вручную введите локальные адреса канала на каждом интерфейсе Ethernet на R1  
 
+```
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#int g0/0/0
+R1(config-if)#ipv
+R1(config-if)#ipv6 ad
+R1(config-if)#ipv6 address 2001:db8:acad:a::1/64
+R1(config-if)#int g0/0/1
+R1(config-if)#ipv
+R1(config-if)#ipv6 ad
+R1(config-if)#ipv6 address 2001:db8:acad:1::1/64
+R1(config-if)#ipv6 ad
+R1(config-if)#ipv6 address fe80::1 local
+                                    ^
+% Invalid input detected at '^' marker.
+	
+R1(config-if)#ipv6 address fe80::1 ?
+  link-local  Use link-local address
+R1(config-if)#ipv6 address fe80::1 lin
+R1(config-if)#ipv6 address fe80::1 link-local 
+R1(config-if)#int g0/0/0
+R1(config-if)#ipv6 address fe80::1 link-local 
+```
+### Введите команду show ipv6 interface brief, чтобы проверить, назначен ли каждому интерфейсу корректный индивидуальный IPv6-адрес.
+```
+R1(config-if)#do show ip
+R1(config-if)#do show ipv
+R1(config-if)#do show ipv6 int br
+GigabitEthernet0/0/0       [administratively down/down]
+    FE80::1
+    2001:DB8:ACAD:A::1
+GigabitEthernet0/0/1       [administratively down/down]
+    FE80::1
+    2001:DB8:ACAD:1::1
+Vlan1                      [administratively down/down]
+    unassigned
+R1(config-if)#int g0/0/0
+R1(config-if)#no sh
+
+R1(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
+int g0/0/1
+R1(config-if)#no sh
+
+R1(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+```
+
+### ⦁	Активируйте IPv6-маршрутизацию на R1  
+В командной строке на PC-B введите команду ipconfig, чтобы получить данные IPv6-адреса, назначенного интерфейсу ПК  
+```
+C:\>ipconfig
+
+FastEthernet0 Connection:(default port)
+
+   Connection-specific DNS Suffix..: 
+   Link-local IPv6 Address.........: FE80::210:11FF:FE39:D5AE
+   IPv6 Address....................: ::
+   IPv4 Address....................: 0.0.0.0
+   Subnet Mask.....................: 0.0.0.0
+   Default Gateway.................: ::
+                                     0.0.0.0
+
+Bluetooth Connection:
+
+   Connection-specific DNS Suffix..: 
+   Link-local IPv6 Address.........: ::
+   IPv6 Address....................: ::
+   IPv4 Address....................: 0.0.0.0
+   Subnet Mask.....................: 0.0.0.0
+   Default Gateway.................: ::
+                                     0.0.0.0
+```
+
+Активируйте IPv6-маршрутизацию на R1 с помощью команды IPv6 unicast-routing  
+
+```
+R1#
+R1#ipv
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#ipv
+R1(config)#ipv6 un
+R1(config)#ipv6 unicast-routing 
+R1(config)#
+```
+### Теперь, когда R1 входит в группу многоадресной рассылки всех маршрутизаторов, еще раз введите команду ipconfig на PC-B. Проверьте данные IPv6-адреса.
+```
+C:\>ipconfig
+
+FastEthernet0 Connection:(default port)
+
+   Connection-specific DNS Suffix..: 
+   Link-local IPv6 Address.........: FE80::210:11FF:FE39:D5AE
+   IPv6 Address....................: 2001:DB8:ACAD:A:210:11FF:FE39:D5AE
+   IPv4 Address....................: 0.0.0.0
+   Subnet Mask.....................: 0.0.0.0
+   Default Gateway.................: FE80::1
+                                     0.0.0.0
+
+Bluetooth Connection:
+
+   Connection-specific DNS Suffix..: 
+   Link-local IPv6 Address.........: ::
+   IPv6 Address....................: ::
+   IPv4 Address....................: 0.0.0.0
+   Subnet Mask.....................: 0.0.0.0
+   Default Gateway.................: ::
+   ```
+
+
+
+### Назначьте IPv6-адреса интерфейсу управления (SVI) на S1.  
+⦁	Назначьте адрес IPv6 для S1. Также назначьте этому интерфейсу локальный адрес канала.  
+⦁	Проверьте правильность назначения IPv6-адресов интерфейсу управления с помощью команды show ipv6 interface vlan1.  
+
+```
 S1>
 S1>
 S1>en
@@ -262,77 +327,13 @@ Press RETURN to get started.
 
 ```
 
+
+
+
+
+
+### С PC-A отправьте эхо-запрос на FE80::1. Это локальный адрес канала, назначенный G0/1 на R1.  
 ```
-
-Cisco Packet Tracer PC Command Line 1.0
-C:\>ipconfig
-
-FastEthernet0 Connection:(default port)
-
-   Connection-specific DNS Suffix..: 
-   Link-local IPv6 Address.........: FE80::210:11FF:FE39:D5AE
-   IPv6 Address....................: ::
-   IPv4 Address....................: 0.0.0.0
-   Subnet Mask.....................: 0.0.0.0
-   Default Gateway.................: ::
-                                     0.0.0.0
-
-Bluetooth Connection:
-
-   Connection-specific DNS Suffix..: 
-   Link-local IPv6 Address.........: ::
-   IPv6 Address....................: ::
-   IPv4 Address....................: 0.0.0.0
-   Subnet Mask.....................: 0.0.0.0
-   Default Gateway.................: ::
-                                     0.0.0.0
-
-C:\>ipconfig
-
-FastEthernet0 Connection:(default port)
-
-   Connection-specific DNS Suffix..: 
-   Link-local IPv6 Address.........: FE80::210:11FF:FE39:D5AE
-   IPv6 Address....................: ::
-   IPv4 Address....................: 0.0.0.0
-   Subnet Mask.....................: 0.0.0.0
-   Default Gateway.................: ::
-                                     0.0.0.0
-
-Bluetooth Connection:
-
-   Connection-specific DNS Suffix..: 
-   Link-local IPv6 Address.........: ::
-   IPv6 Address....................: ::
-   IPv4 Address....................: 0.0.0.0
-   Subnet Mask.....................: 0.0.0.0
-   Default Gateway.................: ::
-                                     0.0.0.0
-
-C:\>ipconfig
-
-FastEthernet0 Connection:(default port)
-
-   Connection-specific DNS Suffix..: 
-   Link-local IPv6 Address.........: FE80::210:11FF:FE39:D5AE
-   IPv6 Address....................: 2001:DB8:ACAD:A:210:11FF:FE39:D5AE
-   IPv4 Address....................: 0.0.0.0
-   Subnet Mask.....................: 0.0.0.0
-   Default Gateway.................: FE80::1
-                                     0.0.0.0
-
-Bluetooth Connection:
-
-   Connection-specific DNS Suffix..: 
-   Link-local IPv6 Address.........: ::
-   IPv6 Address....................: ::
-   IPv4 Address....................: 0.0.0.0
-   Subnet Mask.....................: 0.0.0.0
-   Default Gateway.................: ::
-   ```
-   ```
-   
-Cisco Packet Tracer PC Command Line 1.0
 C:\>ping FE80::1
 
 Pinging FE80::1 with 32 bytes of data:
@@ -346,19 +347,10 @@ Ping statistics for FE80::1:
     Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 1ms, Average = 0ms
+```
 
-C:\>ping 2001:db8:acad:1::b
-
-Pinging 2001:db8:acad:1::b with 32 bytes of data:
-
-Request timed out.
-Request timed out.
-Request timed out.
-Request timed out.
-
-Ping statistics for 2001:DB8:ACAD:1::B:
-    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
-
+### ⦁	Введите команду tracert на PC-A, чтобы проверить наличие сквозного подключения к PC-B  
+```
 C:\>tracert 2001:db8:acad:a::3
 
 Tracing route to 2001:db8:acad:a::3 over a maximum of 30 hops: 
@@ -371,6 +363,9 @@ Trace complete.
 C:\>
 C:\>
 C:\>
+```
+### Отправьте эхо-запрос на интерфейс управления S1 с PC-A  
+```
 C:\>ping 2001:db8:acad:1::b
 
 Pinging 2001:db8:acad:1::b with 32 bytes of data:
@@ -387,6 +382,8 @@ Approximate round trip times in milli-seconds:
 
 C:\>
 ```
+### С PC-B отправьте эхо-запрос на PC-A.   
+
 ```
 C:\>ping 2001:db8:acad:1::3
 
@@ -401,7 +398,9 @@ Ping statistics for 2001:DB8:ACAD:1::3:
     Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
-
+```
+### С PC-B отправьте эхо-запрос на локальный адрес канала G0/0 на R1.
+```
 C:\>ping fe80::1
 
 Pinging fe80::1 with 32 bytes of data:
