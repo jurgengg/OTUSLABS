@@ -1,5 +1,5 @@
-# OTUSLABS
-# OTUSLABS
+# Настройка IPv6-адресов на сетевых устройствах
+![](https://github.com/jurgengg/OTUSLABS/blob/main/LAB4/ip666.png) 
 ### Настройте маршрутизатор  
 ```
 Router>en
@@ -339,8 +339,10 @@ S1 con0 is now available
 Press RETURN to get started.
 
 ```
+### ⦁	Назначьте компьютерам статические IPv6-адреса.
 
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/LAB4/ip61.png) 
+![](https://github.com/jurgengg/OTUSLABS/blob/main/LAB4/ipv62.png) 
 
 
 
