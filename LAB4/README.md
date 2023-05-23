@@ -208,8 +208,8 @@ Bluetooth Connection:
    Default Gateway.................: ::
                                      0.0.0.0
 ```
-
-Активируйте IPv6-маршрутизацию на R1 с помощью команды IPv6 unicast-routing  
+Назначен ли индивидуальный IPv6-адрес сетевой интерфейсной карте (NIC) на PC-B? Нет  
+### Активируйте IPv6-маршрутизацию на R1 с помощью команды IPv6 unicast-routing  
 
 ```
 R1#
@@ -244,6 +244,19 @@ Bluetooth Connection:
    Subnet Mask.....................: 0.0.0.0
    Default Gateway.................: ::
    ```
+Почему PC-B получил глобальный префикс маршрутизации и идентификатор подсети, которые вы настроили на R1?  
+```
+R1#show ipv6 int g0/0/0
+GigabitEthernet0/0/0 is up, line protocol is up
+  IPv6 is enabled, link-local address is FE80::1
+  No Virtual link-local address(es):
+  Global unicast address(es):
+    2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64
+  Joined group address(es):
+    FF02::1
+    FF02::2
+    FF02::1:FF00:1
+```
 
 
 
@@ -414,6 +427,12 @@ Ping statistics for FE80::1:
     Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
-    ```
+```
+    
+
+# Вопросы для повторения  
+⦁	Почему обоим интерфейсам Ethernet на R1 можно назначить один и тот же локальный адрес канала — FE80::1? так как находятся в разных сетях  
+⦁	Какой идентификатор подсети в индивидуальном IPv6-адресе 2001:db8:acad::aaaa:1234/64? aaaa:1234  
+
 
 
