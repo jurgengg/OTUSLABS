@@ -1,5 +1,5 @@
 ## Создайте сеть согласно топологии.  
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab11/net.png)  
 ## Произведите базовую настройку маршрутизаторов  
 ```
 Router>en
@@ -775,8 +775,10 @@ R1(config)#ip http authentication local
 R1(config)#
 ```
 ## Настройте узлы ПК  
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab11/pc1.png)  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab11/pc2.png)  
 # Выполните следующие тесты. Эхозапрос должен пройти успешно  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab11/ping1.png)  
 ```
 C:\>ping 10.40.0.10
 
@@ -901,6 +903,7 @@ R1(config)# interface g0/0/1.30
 R1(config-subif)# ip access-group 102 in
 ```
 ## Убедитесь, что политики безопасности применяются развернутыми списками доступа  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab11/ping2.png)  
 ```
 C:\>ping 10.40.0.10
 
