@@ -673,7 +673,7 @@ R1(config-subif)#encapsulation d
 R1(config-subif)#encapsulation dot1Q 40
 R1(config-subif)#ip
 R1(config-subif)#ip ad
-R1(config-subif)#ip address 10.30.0.1 255.255.255.0
+R1(config-subif)#ip address 10.40.0.1 255.255.255.0
 % 10.30.0.0 overlaps with GigabitEthernet0/0/1.30
 R1(config-subif)#int gi0/0/1.1000
 R1(config-subif)#
