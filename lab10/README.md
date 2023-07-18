@@ -1,3 +1,5 @@
+# Лабораторная № 10 - Configure_Single_Area_OSPFv2
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab10/23.png)    
 ### Произведите базовую настройку маршрутизаторов  
 
 ```
