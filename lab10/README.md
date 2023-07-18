@@ -167,6 +167,14 @@ R2(config-if)#
 ⦁	Настройте инструкцию сети для сети между R1 и R2, поместив ее в область 0.  
 
 ```
+R1(config)#router ospf 56
+R1(config-router)#ro
+R1(config-router)#router-id 1.1.1.1
+R1(config-router)#int g0/0/1
+R1(config-if)#ip os
+R1(config-if)#ip ospf 56 area 0
+```
+```
 R2(config)#router ospf 56
 R2(config-router)#ro
 R2(config-router)#router-id 2.2.2.2
@@ -177,16 +185,6 @@ R2(config-if)#
 ```
 
 
-```
-R1(config)#router ospf 56
-R1(config-router)#ro
-R1(config-router)#router-id 1.1.1.1
-R1(config-router)#int g0/0/1
-R1(config-if)#ip os
-R1(config-if)#ip ospf 56 area 0
-R1(config-if)#
-00:21:01: %OSPF-5-ADJCHG: Process 56, Nbr 2.2.2.2 on GigabitEthernet0/0/1 from LOADING to FULL, Loading Done
-```
 ### Только на R2 добавьте конфигурацию, необходимую для объявления сети Loopback 1 в область OSPF 0.  
 ```
 R2(config)#router ospf 56
