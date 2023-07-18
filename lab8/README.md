@@ -1,3 +1,5 @@
+# Лабораторная №8 -  Configure_DHCPv6-1801-788cdc
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab8/00.png)   
 ## Настройте базовые параметры каждого коммутатора  
 ```
 switch(config)# hostname S1
@@ -95,17 +97,17 @@ R2(config)# ipv6 route ::/0 2001:db8:acad:2::1
 Через несколько минут результаты команды ipconfig должны показать, что PC-A присвоил себе адрес из сети 2001:db8:1::/64.
 ```
 C:\>ipconfig 
-Настройка IP для Windows
+Windows IP Configuration
 
-Ethernet adapter Ethernet 2: 
+Ethernet adapter Ethernet 2:
 
-   Connection-specific DNS Suffix . : 
-   IPv6 Address. . . . . . . . . . . : 2001:db8:acad: 1:5 c43:ee7c:2959:da68
-   Temporary IPv6 Address. . . . . . : 2001:db8:acad: 1:3 c64:e4f 9:46 e 1:1 f23
-   Link-local IPv6-адрес. . . . .: fe80። 5c43:ee7c:2959:да 68% 6
-   IPv4-адрес. . . . . . . . . . . : 169.254.218.104
+   Connection-specific DNS Suffix  . : 
+   IPv6 Address. . . . . . . . . . . : 2001:db8:acad:1:5c43:ee7c:2959:da68
+   Temporary IPv6 Address. . . . . . : 2001:db8:acad:1:3c64:e4f9:46e1:1f23
+   Link-local IPv6 Address . . . . . : fe80::5c43:ee7c:2959:da68%6
+   IPv4 Address. . . . . . . . . . . : 169.254.218.104
    Subnet Mask . . . . . . . . . . . : 255.255.0.0
-   Default Gateway . . . . . . . . .: fe80።1%6
+   Default Gateway . . . . . . . . . : fe80::1%6
 ```
 
 ### Откуда взялась часть адреса с идентификатором хоста? хост генерирует адрес EUI-64 на основе MAC-адреса интерфейса
@@ -118,26 +120,26 @@ Ethernet adapter Ethernet 2:
 C:\>ipconfig /all
 Windows IP Configuration
 
-   Host Name . . . . . . . . . . . . : НАСТОЛЬНАЯ 3FR7RKA
-   Primary Dns Suffix . . . . . . . : 
+   Host Name . . . . . . . . . . . . : DESKTOP-3FR7RKA
+   Primary Dns Suffix  . . . . . . . : 
    Node Type . . . . . . . . . . . . : Hybrid
    IP Routing Enabled. . . . . . . . : No
    WINS Proxy Enabled. . . . . . . . : No
 
 Ethernet adapter Ethernet0:
 
-   Connection-specific DNS Suffix . : 
-   Description . . . . . . . . . . . : Intel(R) 852574L Gigabit Network Connection 
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : Intel(R) 852574L Gigabit Network Connection
    Physical Address. . . . . . . . . : 00-50-56-83-63-6D
    IPv6 Address. . . . . . . . . . . : 2001:db8:acad:1:5c43:ee7c:2959:da68(Preferred)
    Temporary IPv6 Address. . . . . . : 2001:db8:acad:1:3c64:e4f9:46e1:1f23(Preferred)
-   Link-local IPv6-адрес. . . . . : fe80::5c43:ee7c:2959:da68%6(Preferred)
+   Link-local IPv6 Address . . . . . : fe80::5c43:ee7c:2959:da68%6(Preferred)
    IPv4 Address. . . . . . . . . . . : 169.254.218.104(Preferred)
    Subnet Mask . . . . . . . . . . . : 255.255.0.0
-   Шлюз по умолчанию . . . . . . . . .: fe80።1%6
+   Default Gateway . . . . . . . . . : fe80::1%6
    DHCPv6 IAID . . . . . . . . . . . : 50334761
-   DHCPv6 Client DUID.  . . . . . . . : 00-01-00-01-24-F5-CE-A2-00-50-56-B3-63-6D
-   DNS-серверы . . . . . . . . . . . : fec0:0:0:ffff::1%1
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-24-F5-CE-A2-00-50-56-B3-63-6D
+   DNS Servers . . . . . . . . . . . : fec0:0:0:ffff::1%1
                                        fec0:0:0:ffff::2%1
                                        fec0:0:0:ffff::3%1
    NetBIOS over Tcpip. . . . . . . . : Enabled
@@ -160,10 +162,10 @@ R1(config-if)# ipv6 dhcp server R1-STATELESS
 ⦁	Проверьте вывод ipconfig /all и обратите внимание на изменения.
 ```
 C:\>ipconfig /all
-Windows IP Configuration 
+Windows IP Configuration
 
    Host Name . . . . . . . . . . . . : DESKTOP-3FR7RKA
-   Primary Dns Suffix . . . . . . . : 
+   Primary Dns Suffix  . . . . . . . : 
    Node Type . . . . . . . . . . . . : Hybrid
    IP Routing Enabled. . . . . . . . : No
    WINS Proxy Enabled. . . . . . . . : No
@@ -171,22 +173,22 @@ Windows IP Configuration
 
 Ethernet adapter Ethernet0:
 
-   Connection-specific DNS Suffix . : STATELESS.com
-   Описание . . . . . . . . . . . : Intel(R) 82574L Gigabit Network Connection
+   Connection-specific DNS Suffix  . : STATELESS.com
+   Description . . . . . . . . . . . : Intel(R) 82574L Gigabit Network Connection
    Physical Address. . . . . . . . . : 00-50-56-83-63-6D
    DHCP Enabled. . . . . . . . . . . : Yes
    Autoconfiguration Enabled . . . . : Yes
    IPv6 Address. . . . . . . . . . . : 2001:db8:acad:1:5c43:ee7c:2959:da68(Preferred)
    Temporary IPv6 Address. . . . . . : 2001:db8:acad:1:3c64:e4f9:46e1:1f23(Preferred)
-   Link-local IPv6-адрес. . . . . : fe80::5c43:ee7c:2959:da68%6(Preferred)
+   Link-local IPv6 Address . . . . . : fe80::5c43:ee7c:2959:da68%6(Preferred)
    IPv4 Address. . . . . . . . . . . : 169.254.218.104(Preferred)
    Subnet Mask . . . . . . . . . . . : 255.255.0.0
-   Default Gateway . . . . . . . . .: fe80።1%6
+   Default Gateway . . . . . . . . . : fe80::1%6
    DHCPv6 IAID . . . . . . . . . . . : 50334761
    DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-24-F5-CE-A2-00-50-56-B3-63-6D
-   DNS Servers . . . . . . . . . . . : 2001:db8:acad። 254
+   DNS Servers . . . . . . . . . . . : 2001:db8:acad::254
    NetBIOS over Tcpip. . . . . . . . : Enabled
-   Список поиска DNS-суффиксов подключения: 
+   Connection-specific DNS Suffix Search List :
                                        STATELESS.com
 ```
 ⦁	Настройка сервера DHCPv6 с сохранением состояния на R1
@@ -212,24 +214,24 @@ C:\>ipconfig /all
 Windows IP Configuration
 
    Host Name . . . . . . . . . . . . : DESKTOP-3FR7RKA
-   Primary Dns Suffix . . . . . . . : 
+   Primary Dns Suffix  . . . . . . . : 
    Node Type . . . . . . . . . . . . : Hybrid
    IP Routing Enabled. . . . . . . . : No
    WINS Proxy Enabled. . . . . . . . : No
 
 Ethernet adapter Ethernet0:
 
-   Connection-specific DNS Suffix . : 
+   Connection-specific DNS Suffix  . : 
    Description . . . . . . . . . . . : Intel(R) 82574L Gigabit Network Connection
    Physical Address. . . . . . . . . : 00-50-56-B3-7B-06
    DHCP Enabled. . . . . . . . . . . : Yes
    Autoconfiguration Enabled . . . . : Yes
-   IPv6 Address. . . . . . . . . . . : 2001:db8:acad:3:a0f3:3d39:f9fb:a020(Preferred) 
-   Temporary IPv6 Address. . . . . . : 2001:db8:acad:3:d4f3:7b16:eeee:b2b5(Preferred) 
-   Link-local IPv6 address. . . . . : fe80::a0f3:3d39:f9fb:a020%6(Preferred) 
-   IPv4 Address. . . . . . . . . . . : 169.254.160.32(Preferred) 
+   IPv6 Address. . . . . . . . . . . : 2001:db8:acad:3:a0f3:3d39:f9fb:a020(Preferred)
+   Temporary IPv6 Address. . . . . . : 2001:db8:acad:3:d4f3:7b16:eeee:b2b5(Preferred)
+   Link-local IPv6 Address . . . . . : fe80::a0f3:3d39:f9fb:a020%6(Preferred)
+   IPv4 Address. . . . . . . . . . . : 169.254.160.32(Preferred)
    Subnet Mask . . . . . . . . . . . : 255.255.0.0
-   Default Gateway . . . . . . . . .: fe80።1%6
+   Default Gateway . . . . . . . . . : fe80::1%6
    DHCPv6 IAID . . . . . . . . . . . : 50334761
    DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-24-F2-08-38-00-50-56-B3-7B-06
    DNS Servers . . . . . . . . . . . : fec0:0:0:ffff::1%1
@@ -248,11 +250,12 @@ R2(config-if)# ipv6 dhcp relay destination 2001:db8:acad:2::1 g0/0/0
 ⦁	Попытка получить адрес IPv6 из DHCPv6 на PC-B.
 ⦁	Перезапустите PC-B.
 ⦁	Откройте командную строку на PC-B и выполните команду ipconfig /all и проверьте выходные данные, чтобы увидеть результаты операции ретрансляции DHCPv6.
-C:\Users\Student> ipconfig /all
+```
+C:\>ipconfig /all
 Windows IP Configuration
 
    Host Name . . . . . . . . . . . . : DESKTOP-3FR7RKA
-   Primary Dns Suffix . . . . . . . : 
+   Primary Dns Suffix  . . . . . . . : 
    Node Type . . . . . . . . . . . . : Hybrid
    IP Routing Enabled. . . . . . . . : No
    WINS Proxy Enabled. . . . . . . . : No
@@ -260,23 +263,23 @@ Windows IP Configuration
 
 Ethernet adapter Ethernet0:
 
-   Connection-specific DNS Suffix . : STATEFUL.com
+   Connection-specific DNS Suffix  . : STATEFUL.com
    Description . . . . . . . . . . . : Intel(R) 852574L Gigabit Network Connection
    Physical Address. . . . . . . . . : 00-50-56-B3-7B-06
    DHCP Enabled. . . . . . . . . . . : Yes
    Autoconfiguration Enabled . . . . : Yes
    IPv6 Address. . . . . . . . . . . : 2001:db8:acad3:aaaa:7104:8b7d:5402(Preferred)
    Lease Obtained. . . . . . . . . . : Sunday, October 6, 2019 3:27:13 PM
-   Lease Expires . . . . . . . . . . Tuesday, October 8, 2019 3:27:13 PM
-   Link-local IPv6-адрес. . . . . : fe80::a0f3:3d39:f9fb:a020%6(Preferred)
+   Lease Expires . . . . . . . . . . : Tuesday, October 8, 2019 3:27:13 PM
+   Link-local IPv6 Address . . . . . : fe80::a0f3:3d39:f9fb:a020%6(Preferred)
    IPv4 Address. . . . . . . . . . . : 169.254.160.32(Preferred)
    Subnet Mask . . . . . . . . . . . : 255.255.0.0
-   Default Gateway . . . . . . . . .: fe80። 2% 6
+   Default Gateway . . . . . . . . . : fe80::2%6
    DHCPv6 IAID . . . . . . . . . . . : 50334761
    DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-24-F2-08-38-00-50-56-B3-7B-06
-   DNS Servers . . . . . . . . . . . : 2001:db8:acad። 254
-   NetBIOS over Tcpip. . . . . . . . : Включен
-   Список поиска DNS-суффиксов подключения:
+   DNS Servers . . . . . . . . . . . : 2001:db8:acad::254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+   Connection-specific DNS Suffix Search List  :
                                        STATEFUL.com
-
+```
 
