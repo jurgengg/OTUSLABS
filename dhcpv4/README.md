@@ -1,8 +1,7 @@
 ## Лабораторная работа - Реализация DHCPv4 
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/dhcpv4/l%5Bcp.png)   
 ![](https://github.com/jurgengg/OTUSLABS/blob/main/dhcpv4/n.png)   
-⦁	Создание сети и настройка основных параметров устройства  
-В первой части лабораторной работы вам предстоит создать топологию сети и настроить базовые параметры для узлов ПК и коммутаторов.  
+
 ⦁	Создание схемы адресации  
 Подсеть сети 192.168.1.0/24 в соответствии со следующими требованиями:  
 ⦁	Одна подсеть «Подсеть A», поддерживающая 58 хостов (клиентская VLAN на R1).  
@@ -132,6 +131,7 @@ S1(config)# interface f0/6
 S1(config-if)# switchport mode access
 S1(config-if)# switchport access vlan 100
 ```
+```
 S1# show vlan brief
 
 VLAN Name                             Status    Ports
@@ -223,7 +223,6 @@ IP address       Client-ID/              Lease expiration        Type
 192.168.1.6      000B.BEC8.E581           --                     Automatic
 192.168.1.102    000B.BED7.35A9           --                     Automatic
 Router#
-```
 ```
 ```
 C:\>ipconfig /all
