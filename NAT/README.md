@@ -133,7 +133,7 @@ Total number of translations: 1
 R1# show ip nat translations verbose
 Pro  Inside global         Inside local          Outside local         Outside global
 icmp 209.165.200.226:1     192.168.1.2:1         209.165.200.1:1       209.165.200.1:1
-  create: 08/08/19 14:57:22, use: 08/08/23 16:57:25, timeout: 00:01:00
+  create: 08/08/23 14:57:22, use: 08/08/23 16:57:25, timeout: 00:01:00
 <output omitted>
 ```
 ### ⦁	Генерирует трафик с нескольких устройств для наблюдения PAT. На PC-A и PC-B используйте параметр -t с командой ping, чтобы отправить безостановочный ping на интерфейс Lo1 R2 (ping -t 209.165.200.1), затем вернитесь к R1 и выполните команду show ip nat translations:
