@@ -1,5 +1,5 @@
 # Configure_NAT_for_IPv4
-![](https://github.com/jurgengg/OTUSLABS/blob/main/dhcpv4/l%5Bcp.png)  
+![](https://github.com/jurgengg/OTUSLABS/blob/main/NAT/hj.png)  
 ### ⦁	Произведите базовую настройку маршрутизаторов.
 
 ```
