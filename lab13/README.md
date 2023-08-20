@@ -1,3 +1,5 @@
+# Configure_CDP__LLDP__and_NTP
+![](https://github.com/jurgengg/OTUSLABS/blob/main/lab13/677667.png)    
 ## Настройте базовые параметры для маршрутизатора
 ```
 router(config)# hostname R1
