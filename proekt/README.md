@@ -495,6 +495,45 @@ R1(config-if)# ip nat inside
 R1(config)# interface g0/0/1
 R1(config-if)# ip nat outside
 ```
+## Конфигурация безопасности коммутатора
+Защитим порты коммутатора в сторону конечных устройств от сетевых атак
+Настройки проведем для S4 на все порты в стороны ПК  
+```
+S4(config)#int fa0/4
+S4(config-if)#switchport port-security 
+S4(config-if)#switchport port-security mac-address sticky 
+S4(config-if)#switchport port-security maximum 2
+S4(config-if)#switchport port-security violation protect 
+S4(config-if)#switchport port-security aging time 60
+```
+проверяем:  
+```
+S2#sh port-security int fa0/4
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Protect
+Aging Time                 : 60 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 2
+Total MAC Addresses        : 1
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 1
+Last Source Address:Vlan   : 00D0.FFDE.77D7:10
+Security Violation Count   : 0
+
+S2#sh port-security address 
+               Secure Mac Address Table
+-----------------------------------------------------------------------------
+Vlan    Mac Address       Type                          Ports   Remaining Age
+                                                                   (mins)
+----    -----------       ----                          -----   -------------
+  10    00D0.FFDE.77D7    SecureSticky                  Fa0/4       -
+-----------------------------------------------------------------------------
+Total Addresses in System (excluding one mac per port)     : 0
+Max Addresses limit in System (excluding one mac per port) : 1024
+```
+
 
 ### Выводы и планы по развитию: Поставленные цели и задачи выполнены, технологии реализованы, локальная сеть работает в полнном объеме. В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
 
