@@ -197,7 +197,94 @@ R1(config)# ip dhcp pool V20
 R1(config)# network 192.168.20.0 255.255.255.0
 R1(dhcp-config)# default-router 192.168.20.1
 ```
+### Попытка получить IP-адрес от DHCP на PC 10
+```
+C:\>ipconfig /all
 
+FastEthernet0 Connection:(default port)
+
+   Connection-specific DNS Suffix..: 
+   Physical Address................: 00D0.BABB.3E59
+   Link-local IPv6 Address.........: FE80::2D0:BAFF:FEBB:3E59
+   IPv6 Address....................: ::
+   IPv4 Address....................: 192.168.30.2
+   Subnet Mask.....................: 255.255.255.0
+   Default Gateway.................: ::
+                                     192.168.30.1
+   DHCP Servers....................: 192.168.30.1
+   DHCPv6 IAID.....................: 
+   DHCPv6 Client DUID..............: 00-01-00-01-DA-51-07-41-00-D0-BA-BB-3E-59
+   DNS Servers.....................: ::
+                                     0.0.0.0
+
+Bluetooth Connection:
+
+   Connection-specific DNS Suffix..: 
+   Physical Address................: 0000.0C22.5A10
+   Link-local IPv6 Address.........: ::
+   IPv6 Address....................: ::
+   IPv4 Address....................: 0.0.0.0
+   Subnet Mask.....................: 0.0.0.0
+   Default Gateway.................: ::
+                                     0.0.0.0
+   DHCP Servers....................: 0.0.0.0
+   DHCPv6 IAID.....................: 
+   DHCPv6 Client DUID..............: 00-01-00-01-DA-51-07-41-00-D0-BA-BB-3E-59
+   DNS Servers.....................: ::
+                                     0.0.0.0
+```
+### Попытка получить IP-адрес от DHCP на PC 1
+```
+C:\>ipconfig /all
+
+FastEthernet0 Connection:(default port)
+
+   Connection-specific DNS Suffix..: 
+   Physical Address................: 00E0.A324.8EE0
+   Link-local IPv6 Address.........: FE80::2E0:A3FF:FE24:8EE0
+   IPv6 Address....................: ::
+   IPv4 Address....................: 192.168.20.2
+   Subnet Mask.....................: 255.255.255.0
+   Default Gateway.................: ::
+                                     192.168.20.1
+   DHCP Servers....................: 192.168.20.1
+   DHCPv6 IAID.....................: 
+   DHCPv6 Client DUID..............: 00-01-00-01-5D-93-AE-47-00-E0-A3-24-8E-E0
+   DNS Servers.....................: ::
+                                     0.0.0.0
+
+Bluetooth Connection:
+
+   Connection-specific DNS Suffix..: 
+   Physical Address................: 0060.3E5E.7D22
+   Link-local IPv6 Address.........: ::
+   IPv6 Address....................: ::
+   IPv4 Address....................: 0.0.0.0
+   Subnet Mask.....................: 0.0.0.0
+   Default Gateway.................: ::
+                                     0.0.0.0
+   DHCP Servers....................: 0.0.0.0
+   DHCPv6 IAID.....................: 
+   DHCPv6 Client DUID..............: 00-01-00-01-5D-93-AE-47-00-E0-A3-24-8E-E0
+   DNS Servers.....................: ::
+                                     0.0.0.0
+```
+### Ping с PC 1 на PC 10
+```
+C:\>ping 192.168.30.2
+
+Pinging 192.168.30.2 with 32 bytes of data:
+
+Request timed out.
+Reply from 192.168.30.2: bytes=32 time=17ms TTL=123
+Reply from 192.168.30.2: bytes=32 time=11ms TTL=123
+Reply from 192.168.30.2: bytes=32 time<1ms TTL=123
+
+Ping statistics for 192.168.30.2:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 17ms, Average = 9ms
+```
 
 ### Выводы и планы по развитию: В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
 
