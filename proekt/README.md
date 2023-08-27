@@ -24,22 +24,6 @@ S1(config)# banner motd $ Authorized Users Only! $
 S1(config)# exit
 S1# copy running-config startup-config
 ```
-
-Далее базовая настройка каждого маршрутизатора:
-```
-router(config)# hostname R1
-router(config)# hostname R1
-R1(config)# enable secret class
-R1(config)# line console 0
-R1(config-line)# password cisco
-R1(config-line)# login
-R1(config)# line vty 0 4
-R1(config-line)# password cisco
-R1(config-line)# login
-R1(config)# service password-encryption
-R1(config)# banner motd $ Authorized Users Only! $
-R1# copy running-config startup-config
-```
 Создадим необходимые VLAN и распеделим порты на коммутаторе S1
 ```
 S1(config-vlan)#vlan 10
@@ -122,10 +106,97 @@ S4(config)#int range f0/1-5
 S4(config)# switchport mode trunk
 S4(config)#switchport trunk allowed vlan 30,40
 ```
+Далее базовая настройка каждого маршрутизатора:
+```
+router(config)# hostname R1
+router(config)# hostname R1
+R1(config)# enable secret class
+R1(config)# line console 0
+R1(config-line)# password cisco
+R1(config-line)# login
+R1(config)# line vty 0 4
+R1(config-line)# password cisco
+R1(config-line)# login
+R1(config)# service password-encryption
+R1(config)# banner motd $ Authorized Users Only! $
+R1# copy running-config startup-config
+```
+Настройка ip адресов на R1
+```
 
-
-
-
+R1(config)#int g0/0/1
+R1(config)#ip address 215.36.25.1 255.255.255.0
+R1(config-if)#no sh
+R1(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+R1(config-if)#int gi0/0/1.10
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1.10, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1.10, changed state to up
+R1(config-subif)#encapsulation dot1Q 10
+R1(config-subif)#ip address 192.168.10.1 255.255.255.0
+R1(config-subif)#int gi0/0/1.20
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1.20, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1.20, changed state to up
+R1(config-subif)#encapsulation dot1Q 20
+R1(config-subif)#ip address 192.168.20.1 255.255.255.0
+```
+Настройка ip адресов на R2
+```
+R2(config)#int g0/0/0
+R2(config)#ip address 215.36.25.2 255.255.255.0
+R2(config)#int g0/0/1
+R2(config)#ip address 138.36.78.1 255.255.255.0
+```
+Настройка ip адресов на R3
+```
+R3(config)#int g0/0/0
+R3(config)#ip address 138.36.78.2 255.255.255.0
+R3(config)#int g0/0/1
+R3(config)#ip address 25.48.75.1 255.255.255.0
+```
+Настройка ip адресов на R4
+```
+R4(config)#int g0/0/0
+R4(config)#ip address 25.48.75.2 255.255.255.0
+R4(config)#int g0/0/1
+R4(config)#ip address 149.65.32.1 255.255.255.0
+```
+Настройка ip адресов на R5
+```
+R5(config)#int g0/0/1
+R5(config)#ip address 149.65.32.2 255.255.255.0
+R5(config)#int g0/0/0
+R5(config)#no sh
+R5(config)#int gi0/0.30
+R5(config)#encapsulation dot1Q 30
+R5(config)#ip address 192.168.30.1 255.255.255.0
+R5(config)#int gi0/0.40
+R5(config)#encapsulation dot1Q 40
+R5(config)#ip address 192.168.40.1 255.255.255.0
+```
+Настройка DHCP R5
+```
+R5(config)# ip dhcp excluded-address 192.168.30.1
+R5(config)# ip dhcp pool V30
+R5(dhcp-config)# network 192.168.30.0 255.255.255.0
+R5(dhcp-config)# default-router 192.168.30.1
+R5(config)# ip dhcp excluded-address 192.168.40.1
+R5(config)# ip dhcp pool V40
+R5(config)# network 192.168.40.0 255.255.255.0
+R5(dhcp-config)# default-router 192.168.40.1
+```
+Настройка DHCP R1
+```
+R1(config)# ip dhcp excluded-address 192.168.10.1
+R1(config)# ip dhcp pool V10
+R1(dhcp-config)# network 192.168.10.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.10.1
+R1(config)# ip dhcp excluded-address 192.168.20.1
+R1(config)# ip dhcp pool V20
+R1(config)# network 192.168.20.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.20.1
+```
 
 ### Выводы и планы по развитию: В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
 
