@@ -24,6 +24,7 @@ S1(config)# banner motd $ Authorized Users Only! $
 S1(config)# exit
 S1# copy running-config startup-config
 ```
+## VLAN
 Создадим необходимые VLAN и распеделим порты на коммутаторе S1
 ```
 S1(config-vlan)#vlan 10
@@ -231,6 +232,7 @@ R5(config)#int gi0/0.40
 R5(config)#encapsulation dot1Q 40
 R5(config)#ip address 192.168.40.1 255.255.255.0
 ```
+## DHCP
 Настройка DHCP R5
 ```
 R5(config)# ip dhcp excluded-address 192.168.30.1
@@ -414,6 +416,7 @@ Router#sh ip ospf ne
 Neighbor ID     Pri   State           Dead Time   Address         Interface
 215.36.25.2       1   FULL/DR         00:00:36    215.36.25.2     GigabitEthernet0/1
 ```
+## OSPF
 ### Конфигурация OSPF с каждого маррутизатора:
 ```
 R1:
@@ -471,7 +474,7 @@ Sending 5, 100-byte ICMP Echos to 149.65.32.2, timeout is 2 seconds:
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/0 ms
 ```
-
+## NAT
 ## Настройка NAT
 
 ```
@@ -493,10 +496,928 @@ R1(config)# interface g0/0/1
 R1(config-if)# ip nat outside
 ```
 
-### Выводы и планы по развитию: В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
+### Выводы и планы по развитию: Поставленные цели и задачи выполнены, технологии реализованы, локальная сеть работает в полнном объеме. В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
 
+P.S.
+Конфигурации всех устройств  
+S1:
+```
+Current configuration : 1407 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/5
+ switchport access vlan 10
+!
+interface FastEthernet0/6
+ switchport access vlan 20
+!
+interface FastEthernet0/7
+ switchport access vlan 20
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+```
+S2:  
+```
+Switch#sh run
+Building configuration...
 
+Current configuration : 1523 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/5
+ switchport access vlan 10
+!
+interface FastEthernet0/6
+ switchport access vlan 20
+!
+interface FastEthernet0/7
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+```
+S3:  
+```
+Switch#sh run
+Building configuration...
 
+Current configuration : 1349 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface FastEthernet0/5
+ switchport mode trunk
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+```
+S4:  
+```
+Switch#sh run
+Building configuration...
 
+Current configuration : 1579 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport access vlan 30
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/2
+ switchport access vlan 40
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/3
+ switchport access vlan 40
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/4
+ switchport access vlan 30
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/5
+ switchport mode trunk
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+```
+R1:
+```
+Router#sh run
+Building configuration...
 
+Current configuration : 1456 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.10.1
+ip dhcp excluded-address 192.168.20.1
+!
+ip dhcp pool V10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ip dhcp pool V20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524K6NR-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+ ip nat inside
+!
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0
+ ip nat inside
+!
+interface GigabitEthernet0/1
+ ip address 215.36.25.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 215.36.25.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+!
+ip nat pool Ner 215.36.25.3 215.36.25.15 netmask 255.255.255.0
+ip nat inside source list 1 pool Ner
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 1 permit 192.168.0.0 0.0.255.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+```
+R2:  
+```
+Router#sh run
+Building configuration...
+
+Current configuration : 830 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524C222-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 215.36.25.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 138.36.78.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 215.36.25.0 0.0.0.255 area 0
+ network 138.36.78.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+```
+R3:  
+```
+Router#sh run
+Building configuration...
+
+Current configuration : 828 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524F02E-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 138.36.78.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 25.48.75.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 138.36.78.0 0.0.0.255 area 0
+ network 25.48.75.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+```
+R4:  
+```
+Router#sh run
+Building configuration...
+
+Current configuration : 828 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX152418N5-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 25.48.75.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 149.65.32.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 25.48.75.0 0.0.0.255 area 0
+ network 149.65.32.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+```
+R5:  
+```
+Router#sh run
+Building configuration...
+
+Current configuration : 1467 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.30.1
+ip dhcp excluded-address 192.168.40.1
+!
+ip dhcp pool V30
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.1
+ip dhcp pool V40
+ network 192.168.40.0 255.255.255.0
+ default-router 192.168.40.1
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524HXQF-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 192.168.30.1 255.255.255.0
+ ip nat inside
+!
+interface GigabitEthernet0/0.40
+ encapsulation dot1Q 40
+ ip address 192.168.40.1 255.255.255.0
+ ip nat outside
+!
+interface GigabitEthernet0/1
+ ip address 149.65.32.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 149.65.32.0 0.0.0.255 area 0
+ network 192.168.30.0 0.0.0.255 area 0
+ network 192.168.40.0 0.0.0.255 area 0
+!
+ip nat pool NatPool2 149.65.32.3 149.65.32.10 netmask 255.255.255.0
+ip nat inside source list 1 pool NatPool2
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 1 permit 192.168.0.0 0.0.255.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+```
 
