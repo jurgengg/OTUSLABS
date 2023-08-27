@@ -7,7 +7,7 @@
 Задачами к проектированию сети ставилось обеспечить: Создание VLAN`ов для каждого отдела организации, Обеспечение защиты от сетевых атак, Настройка динамической маршрутизации, Настройка динамической выдачи IP адресов  
 Для реализации были выбраны следующие технологии:  OSPF, Spanning Tree Protocol, NAT, VLAN, Port Security,DHCP  
 ## Разработанная схема локальной сети организации:  
-
+![](https://github.com/jurgengg/OTUSLABS/blob/main/proekt/7.png)  
 Начинаем с базовой настройки каждого коммутатора
 ```
 switch(config)# hostname S1
@@ -459,6 +459,37 @@ O       138.36.78.0 [110/2] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
 O       149.65.32.0 [110/4] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
 O    192.168.30.0 [110/5] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
 O    192.168.40.0 [110/5] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
+```
+
+⦁	Запустим Ping до адреса интерфейса R5  из R1. 
+```
+Router#ping 149.65.32.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 149.65.32.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/0 ms
+```
+
+## Настройка NAT
+
+```
+R1(config)# access-list 1 permit 192.168.0.0 0.0.255.255
+R1(config)# ip nat pool Ner 215.36.25.3 215.36.25.15 netmask 255.255.255.0
+R1(config)# ip nat inside source list 1 pool Ner
+R1(config)# interface g0/0/0
+R1(config-if)# ip nat inside
+R1(config)# interface g0/0/1
+R1(config-if)# ip nat outside
+```
+```
+R1(config)# access-list 1 permit 192.168.0.0 0.0.255.255
+R1(config)# ip nat pool NatPool2 149.65.32.3 149.65.32.10 netmask 255.255.255.0
+R1(config)# ip nat inside source list 1 pool NatPool2
+R1(config)# interface g0/0/0
+R1(config-if)# ip nat inside
+R1(config)# interface g0/0/1
+R1(config-if)# ip nat outside
 ```
 
 ### Выводы и планы по развитию: В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
