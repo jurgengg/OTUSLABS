@@ -396,7 +396,70 @@ Ping statistics for 192.168.30.2:
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 17ms, Average = 9ms
 ```
+## Настройка OSPF
+ip адреса на интрефейсах уже настроены ранее  
+На всех маршрутизаторах настраиваем OSPF таким образом:
+```
+R1(config)#router ospf 1
+R1(config-router)#router-id 215.36.25.1
+R1(config-router)#int g0/0/1
+R1(config-if)#ip ospf 1 area 0
+```
+Убедимся, что OSPFv2 работает между маршрутизаторами. Выполните команду, чтобы убедиться, что R1 и R2 сформировали смежность.
+```
+Router#sh ip ospf ne
 
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+215.36.25.2       1   FULL/DR         00:00:36    215.36.25.2     GigabitEthernet0/1
+```
+### Конфигурация OSPF с каждого маррутизатора:
+```
+R1:
+router ospf 1
+ log-adjacency-changes
+ network 215.36.25.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+
+R2:
+router ospf 1
+ log-adjacency-changes
+ network 215.36.25.0 0.0.0.255 area 0
+ network 138.36.78.0 0.0.0.255 area 0
+
+R3:
+router ospf 1
+ log-adjacency-changes
+ network 138.36.78.0 0.0.0.255 area 0
+ network 25.48.75.0 0.0.0.255 area 0
+
+R4:
+router ospf 1
+ log-adjacency-changes
+ network 25.48.75.0 0.0.0.255 area 0
+ network 149.65.32.0 0.0.0.255 area 0
+
+R5:
+router ospf 1
+ log-adjacency-changes
+ network 149.65.32.0 0.0.0.255 area 0
+ network 192.168.30.0 0.0.0.255 area 0
+ network 192.168.40.0 0.0.0.255 area 0
+
+```
+На R1 выполним команду show ip route ospf, чтобы убедиться, что сети присутствует в таблице маршрутизации
+```
+Router#sh ip rou ospf
+     25.0.0.0/24 is subnetted, 1 subnets
+O       25.48.75.0 [110/3] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
+     138.36.0.0/24 is subnetted, 1 subnets
+O       138.36.78.0 [110/2] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
+     149.65.0.0/24 is subnetted, 1 subnets
+O       149.65.32.0 [110/4] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
+O    192.168.30.0 [110/5] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
+O    192.168.40.0 [110/5] via 215.36.25.2, 00:53:03, GigabitEthernet0/1
+```
 ### Выводы и планы по развитию: В дальнейшем планируется организовать сеть провайдера с помощью технологии MPLS, В каждой офисе компании реализовать 3-х уровневую сетевую архитектуру, Развернуть VOIP SIP сервер в офисах компании.
 
 
