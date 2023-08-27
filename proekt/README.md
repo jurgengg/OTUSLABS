@@ -197,6 +197,61 @@ R1(config)# ip dhcp pool V20
 R1(config)# network 192.168.20.0 255.255.255.0
 R1(dhcp-config)# default-router 192.168.20.1
 ```
+### Проверка созданных пулов
+```
+Router#sh ip dhcp pool
+
+Pool V10 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 3
+ Excluded addresses             : 2
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.10.1         192.168.10.1     - 192.168.10.254    3    / 2     / 254
+
+Pool V20 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 3
+ Excluded addresses             : 2
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.20.1         192.168.20.1     - 192.168.20.254    3    / 2     / 254
+
+Router#sh ip dhcp pool
+
+Pool V30 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 2
+ Excluded addresses             : 2
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.30.1         192.168.30.1     - 192.168.30.254    2    / 2     / 254
+
+Pool V40 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 2
+ Excluded addresses             : 2
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.40.1         192.168.40.1     - 192.168.40.254    2    / 2     / 254
+Router#
+```
 ### Попытка получить IP-адрес от DHCP на PC 10
 ```
 C:\>ipconfig /all
